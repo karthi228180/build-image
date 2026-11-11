@@ -55,7 +55,7 @@ pipeline {
                   )
                  ]) {
                 sh '''
-		  docker tag "$DOCKER_IMAGE:$DOCKER_TAG  $DockerhubUser/$DOCKER_IMAGE:$DOCKER_TAG"
+		  docker tag "$DOCKER_IMAGE:$DOCKER_TAG"  "$DockerhubUser/$DOCKER_IMAGE:$DOCKER_TAG"
                   docker push  "$DockerhubUser/$DOCKER_IMAGE:$DOCKER_TAG"
                 '''
 		}
