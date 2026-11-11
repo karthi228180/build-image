@@ -22,7 +22,7 @@ pipeline {
 	stage ("verify Docker image"){
 	    steps {
 		sh '''
-		  dockr images
+		  docker images
 		'''
 	    }
 	}
