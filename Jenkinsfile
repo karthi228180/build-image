@@ -4,6 +4,7 @@ pipeline {
     environment{
 	DOCKER_IMAGE = "myapp"
 	DOCKER_TAG = "latest"
+	DOCKERHUB_USER = "karthikcls"
     }
     stages{
 	stage ("code cloning"){
@@ -27,6 +28,25 @@ pipeline {
 	    }
 	}
 	
+	stage ("docker login"){
+	    steps {
+		echo "login in to dockehub using credntials"
+		withCredentials([usernamePassword(credentialsId: "Dockerhub",usernameVariable: "DOCKERHUB_USER", 
+		passwordVariable: "DOCKER_PASS") )]
+		{
+		  sh '''
+		    echo "$DOCKER_PASS" | docker login \
+		    -u "$DOCKER_USER" --password-stdin
+		  '''
+		}
+	    }
+	}
+	
+	stage ("push to dockerhub"){
+	    steps {
+		sh '''
+		  docker push  $DOCKERHUB_USER/$DOCKER_IMAGE:$DOCKER_TAG
+		'''	
     }
 
     post {
@@ -35,3 +55,4 @@ pipeline {
 	}
     }
 }
+
