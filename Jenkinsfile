@@ -48,7 +48,7 @@ pipeline {
         stage ("push to dockerhub"){
             steps {
                 sh '''
-                  docker push  ${env.DockerhubUser}/$DOCKER_IMAGE:$DOCKER_TAG
+                  docker push  $DockerhubUser/$DOCKER_IMAGE:$DOCKER_TAG
                 '''
             }
         }    
