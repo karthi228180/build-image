@@ -38,7 +38,8 @@ pipeline {
                     ) 
                 ])   {
                   sh '''
-                    docker login -u ${env.DockerhubUser} -p ${env.DockerhubPass}
+                    echo "$DockerhubPass" | docker login \
+                    -u "$DockerhubUser" --password-stdin
                   '''
                 }
             }
