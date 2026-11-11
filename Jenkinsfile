@@ -30,11 +30,11 @@ pipeline {
 	stage ("docker login"){
 	    steps {
 		echo "login in to dockehub using credntials"
-		withCredentials([usernamePassword(credentialsId: "Dockerhub",usernameVariable:"dockerHubUser", 
-		passwordVariable:"dockerHubPass") )]
+		withCredentials([usernamePassword(credentialsId: "Dockerhub",usernameVariable:"DockerhubUser", 
+		passwordVariable:"DockerhubPass") )]
 		{
 		  sh '''
-		    docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}
+		    docker login -u ${env.DockerhubUser} -p ${env.DockerhubPass}
 		  '''
 		}
 	    }
@@ -43,7 +43,7 @@ pipeline {
 	stage ("push to dockerhub"){
 	    steps {
 		sh '''
-		  docker push  ${env.dockerHubUser}/$DOCKER_IMAGE:$DOCKER_TAG
+		  docker push  ${env.DockerhubUser}/$DOCKER_IMAGE:$DOCKER_TAG
 		'''	
     }
 
