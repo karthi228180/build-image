@@ -47,9 +47,17 @@ pipeline {
 
         stage ("push to dockerhub"){
             steps {
+		 withCredentials([
+                  usernamePassword(
+                    credentialsId: 'Dockerhub',
+                    usernameVariable: 'DockerhubUser',
+                    passwordVariable: 'DockerhubPass'
+                  )
+                 ]) {
                 sh '''
                   docker push  "$DockerhubUser/$DOCKER_IMAGE:$DOCKER_TAG"
                 '''
+		}
             }
         }    
     }
